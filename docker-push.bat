@@ -1,1 +1,1 @@
-start /MAX cmd /c "cls && title Push to Dockerhub && docker push prashanthacsq/healthcare-demo-api:1.0"
+start /MAX cmd /c "cls && title Push to Dockerhub && docker push %DOCKER_USERNAME%/healthcare-demo-api:1.0 && timeout /t 10 /nobreak"

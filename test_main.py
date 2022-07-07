@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from main import app
+from main import app, VERSION
 
 client = TestClient(app)
 
@@ -10,7 +10,7 @@ def test_root():
     assert response.status_code == 200
     assert response.json()["statusCode"] == 200
     assert response.json()["statusText"] == "Root Endpoint for Healthcare Demo API"
-    assert response.json()["version"] == "0.0.1-alpha"
+    assert response.json()["version"] == VERSION
 
 
 def test_wakeup():
@@ -18,7 +18,7 @@ def test_wakeup():
     assert response.status_code == 200
     assert response.json()["statusCode"] == 200
     assert response.json()["statusText"] == "API Wakeup Successful"
-    assert response.json()["version"] == "0.0.1-alpha"
+    assert response.json()["version"] == VERSION
 
 
 def test_version():
@@ -26,7 +26,7 @@ def test_version():
     assert response.status_code == 200
     assert response.json()["statusCode"] == 200
     assert response.json()["statusText"] == "Healthcare Demo API Version Fetch Successful"
-    assert response.json()["version"] == "0.0.1-alpha"
+    assert response.json()["version"] == VERSION
 
 
 def test_infer_diabetes():
@@ -34,7 +34,7 @@ def test_infer_diabetes():
     assert response.status_code == 200
     assert response.json()["statusCode"] == 200
     assert response.json()["statusText"] == "Diabetes Inference Endpoint"
-    assert response.json()["version"] == "0.0.1-alpha"
+    assert response.json()["version"] == VERSION
 
 
 def test_infer_cardiovascular_disease():
@@ -42,7 +42,7 @@ def test_infer_cardiovascular_disease():
     assert response.status_code == 200
     assert response.json()["statusCode"] == 200
     assert response.json()["statusText"] == "Cardiovascular Disease Inference Endpoint"
-    assert response.json()["version"] == "0.0.1-alpha"
+    assert response.json()["version"] == VERSION
 
 
 def test_infer_pneumonia():
@@ -50,7 +50,7 @@ def test_infer_pneumonia():
     assert response.status_code == 200
     assert response.json()["statusCode"] == 200
     assert response.json()["statusText"] == "Pneumonia Inference Endpoint"
-    assert response.json()["version"] == "0.0.1-alpha"
+    assert response.json()["version"] == VERSION
 
 
 def test_infer_tuberculosis():
@@ -58,7 +58,7 @@ def test_infer_tuberculosis():
     assert response.status_code == 200
     assert response.json()["statusCode"] == 200
     assert response.json()["statusText"] == "Tuberculosis Inference Endpoint"
-    assert response.json()["version"] == "0.0.1-alpha"
+    assert response.json()["version"] == VERSION
 
 
 def test_infer_brain_mri():
@@ -66,4 +66,4 @@ def test_infer_brain_mri():
     assert response.status_code == 200
     assert response.json()["statusCode"] == 200
     assert response.json()["statusText"] == "Brain MRI Inference Endpoint"
-    assert response.json()["version"] == "0.0.1-alpha"
+    assert response.json()["version"] == VERSION
