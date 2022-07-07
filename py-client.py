@@ -180,7 +180,7 @@ def main():
         
         if response.status_code == 200:
             _, result_image = decode_image(response.json()["imageData"])
-            show_images(image, result_image, title_1="Original", title_2="Segmented Result")
+            if display: show_images(image, result_image, title_1="Original", title_2="Segmented Result")
         else:
             print(f"{response.status_code}, {response.reason}")
 

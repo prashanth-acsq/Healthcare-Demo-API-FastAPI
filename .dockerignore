@@ -3,6 +3,5 @@ venv
 .vscode
 .pytest_cache
 *.bat
-misc
 .github
 .git
