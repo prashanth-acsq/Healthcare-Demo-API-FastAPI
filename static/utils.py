@@ -15,10 +15,16 @@ warnings.filterwarnings("ignore")
 #########################################################################################################
 
 def sigmoid(x):
+    '''
+        Sigmoid function
+    '''
     return 1 / (1 + math.exp(-x))
 
 
 def softmax(x):
+    '''
+        Softmax function
+    '''
     e_x = np.exp(x - np.max(x))
     return e_x / e_x.sum(axis=0)
 
@@ -99,6 +105,9 @@ class CFG(object):
 #########################################################################################################
 
 def do_infer_diabetes(data: np.ndarray) -> tuple:
+    '''
+        Performs inference on the diabetes model.
+    '''
     model = pickle.load(open("static/scikit-models/diabetes.pkl", "rb"))
     data = np.array(data).reshape(1, -1)
     y_pred = model.predict(data)[0]
@@ -114,6 +123,9 @@ def do_infer_diabetes(data: np.ndarray) -> tuple:
 
 
 def do_infer_cardiovascular_disease(data: np.ndarray) -> tuple:
+    '''
+        Performs inference on the cardiovascular disease model.
+    '''
     model = pickle.load(open("static/scikit-models/cardiovascular-disease.pkl", "rb"))
     data = np.array(data).reshape(1, -1)
     y_pred = model.predict(data)[0]
@@ -128,6 +140,9 @@ def do_infer_cardiovascular_disease(data: np.ndarray) -> tuple:
 #########################################################################################################
 
 def decode_image(imageData) -> np.ndarray:
+    '''
+        Decodes an image from base64 string.
+    '''
     header, imageData = imageData.split(",")[0], imageData.split(",")[1]
     image = np.array(Image.open(io.BytesIO(base64.b64decode(imageData))))
     if len(image.shape) == 4:
@@ -138,6 +153,9 @@ def decode_image(imageData) -> np.ndarray:
 
 
 def encode_image_to_base64(header: str = "data:image/png;base64", image: np.ndarray = None) -> str:
+    '''
+        Encodes an image to base64 string.
+    '''
     assert image is not None, "Image is None"
     _, imageData = cv2.imencode(".jpeg", image)
     imageData = base64.b64encode(imageData)
