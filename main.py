@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.responses import JSONResponse
 
 from static.utils import do_infer_diabetes, \
                          do_infer_cardiovascular_disease, \
@@ -70,65 +71,65 @@ async def root():
 
 @app.get("/wakeup")
 async def wakeup():
-    return {
+    return JSONResponse({
         "statusCode" : 200,
         "statusText" : "API Wakeup Successful",
         "version" : VERSION,
-    } 
+    }) 
 
 
 @app.get("/version")
 async def version():
-    return {
+    return JSONResponse({
         "statusCode" : 200,
         "statusText" : "Healthcare Demo API Version Fetch Successful",
         "version" : VERSION,
-    }
+    })
 
 
 @app.get("/infer/diabetes")
 async def get_infer_diabetes():
-    return {
+    return JSONResponse({
         "statusCode" : 200,
         "statusText" : "Diabetes Inference Endpoint",
         "version" : VERSION,
-    }
+    })
 
 
 @app.get("/infer/cardiovascular-disease")
 async def get_infer_cardiovascular_disease():
-    return {
+    return JSONResponse({
         "statusCode" : 200,
         "statusText" : "Cardiovascular Disease Inference Endpoint",
         "version" : VERSION,
-    }
+    })
 
 
 @app.get("/infer/pneumonia")
 async def get_infer_pneumonia():
-    return {
+    return JSONResponse({
         "statusCode" : 200,
         "statusText" : "Pneumonia Inference Endpoint",
         "version" : VERSION,
-    }
+    })
 
 
 @app.get("/infer/tuberculosis")
 async def get_infer_tuberculosis():
-    return {
+    return JSONResponse({
         "statusCode" : 200,
         "statusText" : "Tuberculosis Inference Endpoint",
         "version" : VERSION,
-    }
+    })
 
 
 @app.get("/infer/brain-mri")
 async def get_infer_brain_mri():
-    return {
+    return JSONResponse({
         "statusCode" : 200,
         "statusText" : "Brain MRI Inference Endpoint",
         "version" : VERSION,
-    }
+    })
 
 
 @app.post("/infer/diabetes")
@@ -145,17 +146,17 @@ async def post_infer_diabetes(data: DiabetesData):
     ])
 
     if y_pred is not None and y_pred_proba is not None:
-        return {
+        return JSONResponse({
             "statusText": "Diabetes Inference Complete", 
             "statusCode": 200, 
             "prediction": str(y_pred), 
             "probability": str(y_pred_proba),
-        }
+        })
     else:
-        return {
+        return JSONResponse({
             "statusText" : "Error in performing inference",
             "statusCode" : 404,
-        }
+        })
     
 
 @app.post("/infer/cardiovascular-disease")
@@ -175,17 +176,17 @@ async def post_infer_cardiovascular_disease(data: CardiovascularData):
     ])
 
     if y_pred is not None and y_pred_proba is not None:
-        return {
+        return JSONResponse({
             "statusText": "Cardiovascular Disease Inference Complete", 
             "statusCode": 200, 
             "prediction": str(y_pred), 
             "probability": str(y_pred_proba),
-        }
+        })
     else:
-        return {
+        return JSONResponse({
             "statusText" : "Error in performing inference",
             "statusCode" : 404,
-        }
+        })
     
 
 @app.post("/infer/pneumonia")
@@ -195,11 +196,11 @@ async def post_infer_pneumonia(image: Image):
     cfg.setup()
     
     probability = cfg.infer(image)
-    return {
+    return JSONResponse({
         "statusCode" : 200,
         "statusText" : "Pneumonia Inference Complete",
         "probability" : str(probability),
-    }
+    })
 
 
 @app.post("/infer/tuberculosis")
@@ -209,11 +210,11 @@ async def post_infer_tuberculosis(image: Image):
     cfg.setup()
     
     probability = cfg.infer(image)
-    return {
+    return JSONResponse({
         "statusCode" : 200,
         "statusText" : "Tuberculosis Inference Complete",
         "probability" : str(probability),
-    }
+    })
 
 
 @app.post("/infer/brain-mri")
@@ -225,8 +226,8 @@ async def post_infer_brain_mri(image: Image):
     image = cfg.infer(image)
     imageData = encode_image_to_base64(image=image)
 
-    return {
+    return JSONResponse({
         "statusCode" : 200,
         "statusText" : "Brain MRI Inference Complete",
         "imageData" : imageData,
-    }
+    })
